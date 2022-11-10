@@ -1,7 +1,28 @@
 {% extends './index.html' %}
 {% load static %}
 {% block content %}
-
-<div class="words" contenteditable="">asdasd</div>
+<div class="container-outer">
+    <div class="main-outer">
+        <button type="button" class="speaker-button-large">
+            <div id="speaker" class="speaker-button"></div>
+            <img src="{% static 'images/lee-20-1-removebg-preview.png' %}" alt="" id="speaker">
+        </button>
+    </div>
+    <div class="main-outer">
+        <div class="inner-container-right">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <textarea id="textarea" rows=8 cols=70 name="speech-output"></textarea>
+                <div class="speech-recog-outer">
+                    <button type="button" class="button_medium" onclick="toggleSpeechRecognition()" >
+                        <div id="mic" class="mic-button"></div>
+                    </button>
+                    <span id="mic-status"></span>
+                </div>
+                <input type="Submit" value="Generate">
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

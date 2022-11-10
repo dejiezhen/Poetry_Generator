@@ -1,69 +1,33 @@
-// window.SpeechRecognition =
-//   window.SpeechRecognition || window.webkitSpeechRecognition;
-
-
-// const speechRecognition = new SpeechRecognition()
-// speechRecognition.interimResults = true
-
-// let p = document.createElement('p')
-// const words = document.querySelector('.words')
-// words.appendChild(p)
-
-// speechRecognition.addEventListener('result', e => {
-//     console.log(e)
-// })
-
-// speechRecognition.start() 
-
-// console.log('asdasdas')
-const texts = document.querySelector(".words");
+let recognizing
 
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 
-const recognition = new SpeechRecognition();
-recognition.interimResults = true;
+const recognition = new SpeechRecognition()
 
-let p = document.createElement("p");
+const reset = () => {
+    recognizing = false;
+    document.querySelector('#mic-status').innerHTML = 'Click to Speak'
+}
+recognition.continuous = true;
+reset();
+recognition.onend = reset();
 
-recognition.addEventListener("result", (e) => {
-  texts.appendChild(p);
-  const text = Array.from(e.results)
-    .map((result) => result[0])
-    .map((result) => result.transcript)
-    .join("");
-
-  p.innerText = text;
-  if (e.results[0].isFinal) {
-    if (text.includes("how are you")) {
-      p = document.createElement("p");
-      p.classList.add("replay");
-      p.innerText = "I am fine";
-      texts.appendChild(p);
+recognition.onresult = (e) => {
+    for (var i = e.resultIndex; i < e.results.length; ++i) {
+        if (e.results[i].isFinal) {
+          textarea.value += e.results[i][0].transcript;
+        }
     }
-    if (
-      text.includes("what's your name") ||
-      text.includes("what is your name")
-    ) {
-      p = document.createElement("p");
-      p.classList.add("replay");
-      p.innerText = "My Name is Cifar";
-      texts.appendChild(p);
-    }
-    if (text.includes("open my YouTube")) {
-      p = document.createElement("p");
-      p.classList.add("replay");
-      p.innerText = "opening youtube channel";
-      texts.appendChild(p);
-      console.log("opening youtube");
-      window.open("https://www.youtube.com/channel/UCdxaLo9ALJgXgOUDURRPGiQ");
-    }
-    p = document.createElement("p");
-  }
-});
+}
 
-recognition.addEventListener("end", () => {
-  recognition.start();
-});
-
-recognition.start();
+const toggleSpeechRecognition = () => {
+    if (recognizing) {
+        recognition.stop();
+        reset();
+      } else {
+        recognition.start();
+        recognizing = true;
+        document.querySelector('#mic-status').innerHTML = 'Click to Stop'
+    }
+}
