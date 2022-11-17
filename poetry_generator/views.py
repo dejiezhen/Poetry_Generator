@@ -5,8 +5,8 @@ from django.http import HttpResponse
 
 
 def index(request):
-    print('check print')
     poem = Poem()
     poem.speech_output(request)
-    poem.tokenize()
-    return render(request, './templates/home.html')
+    poem = poem.tokenize()
+    print(poem)
+    return render(request, './templates/home.html', {"poem": poem})

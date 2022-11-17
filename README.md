@@ -6,3 +6,8 @@
 - https://github.com/Areesha-Tahir/Urdu-Poetry-Generation-Using-N-Grams-BackwardBigram-BidirectionalBigram-In-Python
 https://hourone.ai/ 
 - https://github.com/milhouse74/prose2poetry
+
+
+#TensorFlow
+https://www.youtube.com/watch?v=6ORnRAz3gnA&ab_channel=JeffHeaton
+https://www.youtube.com/watch?v=ZMudJXhsUpY&ab_channel=TensorFlow
